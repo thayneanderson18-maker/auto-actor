@@ -1,0 +1,424 @@
+[
+  {
+    "name": "seek-au-job-scraper",
+    "title": "Seek AU Job Scraper",
+    "pitch": "Job listings from SEEK Australia (seek.com.au), straight from SEEK's own JSON search API. No browser, no proxy, so a run takes seconds.",
+    "price": "$0.001 per job ($1 per 1,000)",
+    "input": [
+      [
+        "keywords",
+        "string",
+        "Search keywords, e.g. `roof plumber` or `data engineer`. Leave empty for all jobs.",
+        "\"carpenter\""
+      ],
+      [
+        "where",
+        "string",
+        "Suburb, city or region as you would type it on Seek, e.g. `Brisbane` or `All Sydney NSW`.",
+        "\"Brisbane\""
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many jobs.",
+        "200"
+      ]
+    ],
+    "run_input": {
+      "keywords": "carpenter",
+      "where": "Brisbane",
+      "maxItems": 50
+    },
+    "output": [
+      [
+        "id",
+        "\"95672979\"",
+        "SEEK job id"
+      ],
+      [
+        "title",
+        "\"Carpenter\"",
+        "Job title"
+      ],
+      [
+        "company",
+        "\"SE Building Solutions\"",
+        "Advertiser"
+      ],
+      [
+        "locations",
+        "[\"Brisbane QLD\"]",
+        "One or more locations"
+      ],
+      [
+        "salary",
+        "\"$50 – $60 per hour\"",
+        "Salary text as shown on SEEK, when the ad states one"
+      ],
+      [
+        "workTypes",
+        "[\"Full time\"]",
+        "Full time, Part time, Contract/Temp, Casual/Vacation"
+      ],
+      [
+        "classifications",
+        "[\"Trades & Services\"]",
+        "SEEK classification"
+      ],
+      [
+        "listingDate",
+        "\"2026-11-03T20:43:53Z\"",
+        "When the ad was listed (ISO 8601)"
+      ],
+      [
+        "teaser",
+        "\"Join the Award Winning SE Building Solutions for…\"",
+        "First lines of the ad"
+      ],
+      [
+        "bulletPoints",
+        "[\"Great pay\", \"Interesting job\"]",
+        "Up to three selling points, often empty"
+      ],
+      [
+        "isFeatured",
+        "false",
+        "Paid placement flag"
+      ],
+      [
+        "url",
+        "\"https://www.seek.com.au/job/95672979\"",
+        "Link to the ad"
+      ]
+    ],
+    "print_py": "print(job[\"title\"], \"|\", job[\"company\"], \"|\", job.get(\"salary\") or \"no salary listed\", \"|\", job[\"url\"])",
+    "print_js": "console.log(job.title, '|', job.company, '|', job.salary || 'no salary listed', '|', job.url);",
+    "uses": [
+      "A fresh list of trade or office jobs in one city every morning, pushed to a Google Sheet.",
+      "Salary benchmarking by classification or region.",
+      "Lists of companies that are hiring right now (the `company` field), for sales or recruiting."
+    ],
+    "notes": [
+      "Only the fields SEEK returns in search results are included; the full ad text is not.",
+      "Set `maxItems` to what you need: you pay per job returned."
+    ]
+  },
+  {
+    "name": "seek-nz-job-scraper",
+    "title": "Seek NZ Job Scraper",
+    "pitch": "Job listings from SEEK New Zealand (seek.co.nz), straight from SEEK's own JSON search API. No browser, no proxy, so a run takes seconds.",
+    "price": "$0.001 per job ($1 per 1,000)",
+    "input": [
+      [
+        "keywords",
+        "string",
+        "Search keywords, e.g. `roof plumber` or `data engineer`. Leave empty for all jobs.",
+        "\"carpenter\""
+      ],
+      [
+        "where",
+        "string",
+        "Suburb, city or region as you would type it on Seek, e.g. `Auckland` or `All Auckland`.",
+        "\"Auckland\""
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many jobs.",
+        "200"
+      ]
+    ],
+    "run_input": {
+      "keywords": "carpenter",
+      "where": "Auckland",
+      "maxItems": 50
+    },
+    "output": [
+      [
+        "id",
+        "\"95472220\"",
+        "SEEK job id"
+      ],
+      [
+        "title",
+        "\"Wooden Joinery Installer, repairs and service\"",
+        "Job title"
+      ],
+      [
+        "company",
+        "\"The Sash Window Company\"",
+        "Advertiser"
+      ],
+      [
+        "locations",
+        "[\"East Tamaki, Auckland\"]",
+        "One or more locations"
+      ],
+      [
+        "salary",
+        "\"$40 – $60 per hour\"",
+        "Salary text as shown on SEEK, when the ad states one"
+      ],
+      [
+        "workTypes",
+        "[\"Full time\"]",
+        "Full time, Part time, Contract/Temp, Casual/Vacation"
+      ],
+      [
+        "classifications",
+        "[\"Trades & Services\"]",
+        "SEEK classification"
+      ],
+      [
+        "listingDate",
+        "\"2026-10-23T21:33:38Z\"",
+        "When the ad was listed (ISO 8601)"
+      ],
+      [
+        "teaser",
+        "\"Ready for a change? Want to be paid what you're worth…\"",
+        "First lines of the ad"
+      ],
+      [
+        "bulletPoints",
+        "[\"Great pay\", \"Interesting job\", \"Great team environment\"]",
+        "Up to three selling points, often empty"
+      ],
+      [
+        "isFeatured",
+        "true",
+        "Paid placement flag"
+      ],
+      [
+        "url",
+        "\"https://www.seek.co.nz/job/95472220\"",
+        "Link to the ad"
+      ]
+    ],
+    "print_py": "print(job[\"title\"], \"|\", job[\"company\"], \"|\", job.get(\"salary\") or \"no salary listed\", \"|\", job[\"url\"])",
+    "print_js": "console.log(job.title, '|', job.company, '|', job.salary || 'no salary listed', '|', job.url);",
+    "uses": [
+      "A fresh list of jobs in one region every morning, pushed to a Google Sheet or Slack.",
+      "Salary benchmarking by classification or region.",
+      "Lists of companies that are hiring right now (the `company` field), for sales or recruiting."
+    ],
+    "notes": [
+      "Only the fields SEEK returns in search results are included; the full ad text is not.",
+      "Set `maxItems` to what you need: you pay per job returned."
+    ]
+  },
+  {
+    "name": "google-trends-scraper-all-widgets",
+    "title": "Google Trends Scraper",
+    "pitch": "Google Trends data for up to 20 keywords per run: interest over time, interest by region and related queries, as flat rows that drop straight into Sheets, a BI tool or an AI agent. Any country or worldwide, 7 days to 5 years. No browser, no API key.",
+    "price": "$0.0025 per row ($2.50 per 1,000). One keyword over 12 months produced about 170 rows in our tests.",
+    "input": [
+      [
+        "keywords",
+        "array of strings",
+        "Up to 20 search terms to analyse.",
+        "[\"bitcoin\"]"
+      ],
+      [
+        "geo",
+        "string",
+        "Two-letter country code such as `US`, `AU` or `GB`, or empty for worldwide.",
+        "\"\""
+      ],
+      [
+        "timeRange",
+        "string",
+        "One of `past_7_days`, `past_30_days`, `past_90_days`, `past_12_months`, `past_5_years`.",
+        "\"past_12_months\""
+      ]
+    ],
+    "run_input": {
+      "keywords": [
+        "bitcoin"
+      ],
+      "geo": "",
+      "timeRange": "past_12_months"
+    },
+    "output": [
+      [
+        "keyword",
+        "\"bitcoin\"",
+        "The search term the row belongs to"
+      ],
+      [
+        "kind",
+        "\"interest_over_time\"",
+        "`interest_over_time`, `interest_by_region` or `related_query`"
+      ],
+      [
+        "label",
+        "\"Nov 2 – 8, 2025\"",
+        "Week range, region name or related query text, depending on `kind`"
+      ],
+      [
+        "time",
+        "\"1762041600\"",
+        "Unix seconds for `interest_over_time` rows; null otherwise"
+      ],
+      [
+        "value",
+        "50",
+        "Google's relative score, 0 to 100"
+      ],
+      [
+        "geo",
+        "\"worldwide\"",
+        "Country code or `worldwide`"
+      ],
+      [
+        "trend",
+        "\"top\"",
+        "`related_query` rows only: whether the query is from the top or rising list"
+      ],
+      [
+        "link",
+        "\"https://trends.google.com/…\"",
+        "`related_query` rows only: link to that query on Google Trends"
+      ]
+    ],
+    "print_py": "print(row[\"kind\"], \"|\", row[\"label\"], \"|\", row[\"value\"])",
+    "print_js": "console.log(row.kind, '|', row.label, '|', row.value);",
+    "uses": [
+      "Weekly demand tracking for your product category or brand in one spreadsheet.",
+      "Finding rising related queries before they peak, for content and ads.",
+      "Comparing interest across countries for market entry decisions."
+    ],
+    "notes": [
+      "Rows are flat on purpose: filter on `kind` to get one table per widget.",
+      "Google Trends values are relative to the highest point in the selected period, not absolute search counts."
+    ]
+  },
+  {
+    "name": "google-jobs-scraper",
+    "title": "Google Jobs Scraper (US & UK)",
+    "pitch": "Google Jobs results for US and UK searches: title, company, location, salary, job type, the full description and the real apply links behind each listing. Up to 10 jobs per query, with an only-new mode for scheduled runs.",
+    "price": "$0.0025 per job ($2.50 per 1,000)",
+    "input": [
+      [
+        "queries",
+        "array of strings",
+        "Job searches, e.g. `software engineer london`.",
+        "[\"data analyst new york\"]"
+      ],
+      [
+        "country",
+        "string",
+        "`us` or `uk`.",
+        "\"us\""
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many jobs in total.",
+        "10"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip jobs already returned by earlier runs (remembered in the `google-jobs-seen` store of your account). Ideal for schedules.",
+        "false"
+      ],
+      [
+        "debug",
+        "boolean",
+        "Save raw HTML for debugging.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "queries": [
+        "data analyst new york"
+      ],
+      "country": "us",
+      "maxItems": 10
+    },
+    "output": [
+      [
+        "id",
+        "\"93Ca3Nw89N0VnIw-AAAAAA==\"",
+        "Google's job id"
+      ],
+      [
+        "title",
+        "\"Customer Data Analyst\"",
+        "Job title"
+      ],
+      [
+        "company",
+        "\"L'Occitane En Provence\"",
+        "Employer"
+      ],
+      [
+        "location",
+        "\"New York, NY\"",
+        "Location text"
+      ],
+      [
+        "via",
+        "\"Built In NYC\"",
+        "The job board Google sourced it from"
+      ],
+      [
+        "postedAt",
+        "\"2 days ago\"",
+        "Posting age as Google shows it"
+      ],
+      [
+        "salary",
+        "\"75K–85K a year\"",
+        "Salary text when shown"
+      ],
+      [
+        "jobType",
+        "\"Full-time\"",
+        "Full-time, Part-time, Contractor, Internship"
+      ],
+      [
+        "description",
+        "\"Born of a simple gesture in 1976…\"",
+        "Full job description"
+      ],
+      [
+        "applyLinks",
+        "[{\"name\": \"Built In NYC\", \"url\": \"https://…\"}, …]",
+        "Every apply option Google lists, with its URL"
+      ],
+      [
+        "googleJobsUrl",
+        "\"https://www.google.com/search?ibp=htl;jobs&htidocid=…\"",
+        "Link to the listing on Google Jobs"
+      ],
+      [
+        "query",
+        "\"data analyst new york\"",
+        "The query that found it"
+      ],
+      [
+        "country",
+        "\"us\"",
+        "`us` or `uk`"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-07T23:59:45.648Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(job[\"title\"], \"|\", job[\"company\"], \"|\", job[\"location\"], \"|\", job.get(\"salary\") or \"no salary listed\")",
+    "print_js": "console.log(job.title, '|', job.company, '|', job.location, '|', job.salary || 'no salary listed');",
+    "uses": [
+      "A daily feed of new postings for a role and city with `onlyNew: true`, so you only see jobs you haven't seen.",
+      "Salary and job-type snapshots across cities.",
+      "Lists of employers hiring for a skill, with direct apply links."
+    ],
+    "notes": [
+      "Google returns 10 jobs per query; use several specific queries rather than one broad one.",
+      "US and UK only. Google does not show a jobs panel for some countries, Australia included."
+    ]
+  }
+]

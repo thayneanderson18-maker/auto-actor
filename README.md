@@ -26,3 +26,11 @@ curl -X POST "https://api.apify.com/v2/acts/daedal_quintuplet~seek-au-job-scrape
 ## About this repository
 
 The examples are regenerated from live test runs of each actor, so the fields shown are the fields you get. Found a problem? Open an issue here or on the actor's Store page.
+
+## Maintaining this repository
+
+`actors.json` holds the facts for each actor (fields, examples, pitch, uses, notes). `tools/generate.py` renders everything else from it. To add or update an actor, edit `actors.json` and run:
+
+```bash
+python3 tools/generate.py
+```
