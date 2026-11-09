@@ -94,14 +94,14 @@ run = client.actor("{USER}/{a['name']}").call(
     run_input={indent_block(json.dumps(a['run_input'], indent=4))}
 )
 
-{"row" if "trends" in a["name"] else "job"}s = client.dataset(run["defaultDatasetId"]).iterate_items()
-for {"row" if "trends" in a["name"] else "job"} in {"row" if "trends" in a["name"] else "job"}s:
+{a.get("var") or ("row" if "trends" in a["name"] else "job")}s = client.dataset(run["defaultDatasetId"]).iterate_items()
+for {a.get("var") or ("row" if "trends" in a["name"] else "job")} in {a.get("var") or ("row" if "trends" in a["name"] else "job")}s:
     {a['print_py']}
 '''
 
 
 def example_js(a):
-    var = "row" if "trends" in a["name"] else "job"
+    var = a.get("var") or ("row" if "trends" in a["name"] else "job")
     inp = indent_block(json.dumps(a["run_input"], indent=4))
     return f"""// Run {a['title']} on Apify and print the results.
 //

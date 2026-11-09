@@ -8,6 +8,8 @@ Working examples for every public actor we run on the [Apify Store](https://apif
 | [Seek NZ Job Scraper](seek-nz-job-scraper/) | Job listings from SEEK New Zealand (seek. | $0.001 per job | [Store](https://apify.com/daedal_quintuplet/seek-nz-job-scraper) |
 | [Google Trends Scraper](google-trends-scraper-all-widgets/) | Google Trends data for up to 20 keywords per run: interest over time, interest by region and related queries, as flat rows that drop straight into Sheets, a BI tool or an AI agent. | $0.0025 per row | [Store](https://apify.com/daedal_quintuplet/google-trends-scraper-all-widgets) |
 | [Google Jobs Scraper (US & UK)](google-jobs-scraper/) | Google Jobs results for US and UK searches: title, company, location, salary, job type, the full description and the real apply links behind each listing. | $0.0025 per job | [Store](https://apify.com/daedal_quintuplet/google-jobs-scraper) |
+| [Greenhouse Jobs Scraper](greenhouse-jobs-scraper/) | Every open job from any company's Greenhouse job board: title, company, locations, departments, posted date, published salary range, full description and apply link. | $0.0012 per job | [Store](https://apify.com/daedal_quintuplet/greenhouse-jobs-scraper) |
+| [Google Images Scraper](google-images-scraper/) | Google Images search results: full-size image URL, width and height, thumbnail, title, source page and website. | $0.0021 per image | [Store](https://apify.com/daedal_quintuplet/google-images-scraper) |
 
 All actors are pay-per-event: you pay per result, nothing per month, and Apify's free plan includes $5 of usage a month.
 

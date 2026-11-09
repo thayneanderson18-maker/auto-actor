@@ -420,5 +420,360 @@
       "Google returns 10 jobs per query; use several specific queries rather than one broad one.",
       "US and UK only. Google does not show a jobs panel for some countries, Australia included."
     ]
+  },
+  {
+    "name": "greenhouse-jobs-scraper",
+    "title": "Greenhouse Jobs Scraper",
+    "pitch": "Every open job from any company's Greenhouse job board: title, company, locations, departments, posted date, published salary range, full description and apply link. Title, location, department and date filters, plus an only-new mode for scheduled runs.",
+    "price": "$0.0012 per job ($1.20 per 1,000)",
+    "input": [
+      [
+        "boards",
+        "array of strings",
+        "Companies to scrape: the board name from the careers URL (`airbnb` in job-boards.greenhouse.io/airbnb) or the full URL.",
+        "[\"discord\"]"
+      ],
+      [
+        "titleSearch",
+        "array of strings",
+        "Keep only jobs whose title contains any of these words.",
+        "[\"engineer\", \"data\"]"
+      ],
+      [
+        "titleExclusionSearch",
+        "array of strings",
+        "Drop jobs whose title contains any of these words.",
+        "[\"intern\"]"
+      ],
+      [
+        "locationSearch",
+        "array of strings",
+        "Keep only jobs whose location or office contains any of these words.",
+        "[\"remote\", \"london\"]"
+      ],
+      [
+        "departmentSearch",
+        "array of strings",
+        "Keep only jobs in a department whose name contains any of these words.",
+        "[\"engineering\"]"
+      ],
+      [
+        "postedWithinDays",
+        "integer",
+        "Keep only jobs first published in the last N days.",
+        "7"
+      ],
+      [
+        "includeSalary",
+        "boolean",
+        "Fetch the pay range the company publishes for each job (empty when it doesn't publish one).",
+        "true"
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many jobs in total across all boards.",
+        "200"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip jobs already returned by earlier runs (remembered for 180 days in the `greenhouse-jobs-seen` store of your account). Ideal for schedules.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "boards": [
+        "discord"
+      ],
+      "maxItems": 50
+    },
+    "output": [
+      [
+        "id",
+        "\"8162169\"",
+        "Greenhouse job id"
+      ],
+      [
+        "title",
+        "\"Customer Experience Manager, Robinhood Concierge\"",
+        "Job title"
+      ],
+      [
+        "organization",
+        "\"Robinhood\"",
+        "Company"
+      ],
+      [
+        "board",
+        "\"robinhood\"",
+        "Greenhouse board name"
+      ],
+      [
+        "url",
+        "\"https://boards.greenhouse.io/robinhood/jobs/8162169…\"",
+        "Link to the job ad"
+      ],
+      [
+        "apply_url",
+        "\"https://boards.greenhouse.io/robinhood/jobs/8162169…#app\"",
+        "Link to the application form"
+      ],
+      [
+        "date_posted",
+        "\"2026-09-11T16:19:03.000Z\"",
+        "When the job was first published"
+      ],
+      [
+        "date_updated",
+        "\"2026-11-08T08:04:45.000Z\"",
+        "When the ad was last updated"
+      ],
+      [
+        "locations",
+        "[\"Denver, CO\", \"Westlake, TX\"]",
+        "Every location listed"
+      ],
+      [
+        "location",
+        "\"Denver, CO; Westlake, TX\"",
+        "Location text as shown on the board"
+      ],
+      [
+        "departments",
+        "[\"Customer Care\"]",
+        "Departments"
+      ],
+      [
+        "offices",
+        "[\"Denver, CO\", \"Westlake, TX\"]",
+        "Offices"
+      ],
+      [
+        "salary_min",
+        "110500",
+        "Lowest published pay, when the company publishes a range"
+      ],
+      [
+        "salary_max",
+        "130000",
+        "Highest published pay"
+      ],
+      [
+        "salary_currency",
+        "\"USD\"",
+        "Pay currency"
+      ],
+      [
+        "salary_title",
+        "\"Zone 1 (Menlo Park, CA; …)\"",
+        "Label of the pay range"
+      ],
+      [
+        "requisition_id",
+        "\"JR109347\"",
+        "Company's requisition id, when set"
+      ],
+      [
+        "description_text",
+        "\"Join us in building the future of finance…\"",
+        "Full job description as plain text"
+      ],
+      [
+        "description_html",
+        "\"<div class=\\\"content-intro\\\">…\"",
+        "Full job description as HTML"
+      ],
+      [
+        "metadata",
+        "{\"Careers Page Bucket\": \"CUSTOMER EXPERIENCE\"}",
+        "Custom fields the company adds"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-08T23:08:02.630Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(job[\"title\"], \"|\", job[\"organization\"], \"|\", job[\"location\"], \"|\", job.get(\"salary_min\") or \"no salary listed\")",
+    "print_js": "console.log(job.title, '|', job.organization, '|', job.location, '|', job.salary_min || 'no salary listed');",
+    "uses": [
+      "A daily feed of new openings at a list of target companies with `onlyNew: true`.",
+      "Salary benchmarking from the pay ranges companies publish.",
+      "Tracking which teams a company is hiring for (`departments`) as a sales or investment signal."
+    ],
+    "notes": [
+      "Works for any company whose careers page is hosted on Greenhouse; find the board name in the careers URL.",
+      "`includeSalary` costs one extra request per job; turn it off if you don't need pay ranges."
+    ]
+  },
+  {
+    "name": "google-images-scraper",
+    "title": "Google Images Scraper",
+    "var": "image",
+    "pitch": "Google Images search results: full-size image URL, width and height, thumbnail, title, source page and website. About 100 images per page, with size, type and date filters, any country, and an only-new mode for scheduled runs.",
+    "price": "$0.0021 per image ($2.10 per 1,000)",
+    "input": [
+      [
+        "queries",
+        "array of strings",
+        "Searches, written the way you would type them into Google.",
+        "[\"red sneakers\"]"
+      ],
+      [
+        "maxResultsPerQuery",
+        "integer",
+        "The most images to return for each search (Google serves about 100 per page).",
+        "100"
+      ],
+      [
+        "country",
+        "string",
+        "Two-letter country code Google searches from, e.g. `us`, `gb`, `de`.",
+        "\"us\""
+      ],
+      [
+        "language",
+        "string",
+        "Interface language code, e.g. `en`, `de`.",
+        "\"en\""
+      ],
+      [
+        "imageSize",
+        "string",
+        "`any`, `large`, `medium` or `icon`.",
+        "\"large\""
+      ],
+      [
+        "imageType",
+        "string",
+        "`any`, `photo`, `clipart`, `lineart` or `animated`.",
+        "\"photo\""
+      ],
+      [
+        "timeRange",
+        "string",
+        "`any`, `day`, `week`, `month` or `year`.",
+        "\"month\""
+      ],
+      [
+        "safeSearch",
+        "boolean",
+        "Keep Google SafeSearch on.",
+        "true"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip images already returned by earlier runs (remembered for 90 days in the `google-images-seen` store of your account). Ideal for schedules.",
+        "false"
+      ],
+      [
+        "debug",
+        "boolean",
+        "Save raw HTML for debugging.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "queries": [
+        "red sneakers"
+      ],
+      "maxResultsPerQuery": 100,
+      "country": "us"
+    },
+    "output": [
+      [
+        "query",
+        "\"lighthouse watercolor\"",
+        "The query that found it"
+      ],
+      [
+        "position",
+        "3",
+        "Rank in the results"
+      ],
+      [
+        "imageId",
+        "\"eUsS9nT4JvA4tM\"",
+        "Google's image id"
+      ],
+      [
+        "title",
+        "\"Step-by-Step Watercolor Painting: Highland Light…\"",
+        "Title Google shows"
+      ],
+      [
+        "imageUrl",
+        "\"https://i0.wp.com/farm8.staticflickr.com/…jpg\"",
+        "Full-size image URL"
+      ],
+      [
+        "imageWidth",
+        "408",
+        "Full-size width in pixels"
+      ],
+      [
+        "imageHeight",
+        "640",
+        "Full-size height in pixels"
+      ],
+      [
+        "thumbnailUrl",
+        "\"https://encrypted-tbn0.gstatic.com/images?q=…\"",
+        "Google's thumbnail"
+      ],
+      [
+        "thumbnailWidth",
+        "408",
+        "Thumbnail width"
+      ],
+      [
+        "thumbnailHeight",
+        "640",
+        "Thumbnail height"
+      ],
+      [
+        "contentUrl",
+        "\"https://www.lesliefehling.com/step-by-step-…\"",
+        "The page the image appears on"
+      ],
+      [
+        "origin",
+        "\"www.lesliefehling.com\"",
+        "Website domain"
+      ],
+      [
+        "source",
+        "\"Leslie Fehling\"",
+        "Website name"
+      ],
+      [
+        "fileSize",
+        "\"59KB\"",
+        "File size when Google shows it"
+      ],
+      [
+        "country",
+        "\"us\"",
+        "Country searched from"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-08T23:07:59.702Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(image[\"position\"], image[\"title\"], image[\"imageUrl\"], f'{image[\"imageWidth\"]}x{image[\"imageHeight\"]}')",
+    "print_js": "console.log(image.position, image.title, image.imageUrl, `${image.imageWidth}x${image.imageHeight}`);",
+    "uses": [
+      "Collecting reference or mood-board images for a topic, with source pages for attribution.",
+      "Monitoring where a product or brand image appears across the web, daily with `onlyNew: true`.",
+      "Building image datasets with dimensions to filter by size."
+    ],
+    "notes": [
+      "Images belong to their owners; check the source page's licence before reusing one.",
+      "Google serves about 100 images per page; use several specific queries for more."
+    ]
   }
 ]
