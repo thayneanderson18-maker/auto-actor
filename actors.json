@@ -775,5 +775,199 @@
       "Images belong to their owners; check the source page's licence before reusing one.",
       "Google serves about 100 images per page; use several specific queries for more."
     ]
+  },
+  {
+    "name": "career-site-jobs-scraper",
+    "title": "Career Site Jobs Scraper",
+    "pitch": "Open jobs straight from company career sites on Lever, Ashby, SmartRecruiters, Workday and Workable: title, company, location, remote flag, salary, department, posted date, full description and apply link. Title, location, department, remote and date filters, plus an only-new mode for daily feeds.",
+    "price": "$0.0015 per job ($1.50 per 1,000)",
+    "input": [
+      [
+        "companies",
+        "array of strings",
+        "Career sites to scrape: the careers URL (e.g. `https://jobs.lever.co/spotify`) or `ats:name` (e.g. `ashby:notion`). A bare name is looked up on Lever, Ashby, SmartRecruiters and Workable.",
+        "[\"https://jobs.lever.co/spotify\", \"ashby:notion\"]"
+      ],
+      [
+        "titleSearch",
+        "array of strings",
+        "Keep only jobs whose title contains any of these words.",
+        "[\"engineer\", \"data\"]"
+      ],
+      [
+        "titleExclusionSearch",
+        "array of strings",
+        "Drop jobs whose title contains any of these words.",
+        "[\"intern\"]"
+      ],
+      [
+        "locationSearch",
+        "array of strings",
+        "Keep only jobs whose location contains any of these words.",
+        "[\"London\", \"remote\"]"
+      ],
+      [
+        "departmentSearch",
+        "array of strings",
+        "Keep only jobs whose department or team contains any of these words. Workday boards don't publish departments, so this drops Workday jobs.",
+        "[\"engineering\"]"
+      ],
+      [
+        "remoteOnly",
+        "boolean",
+        "Keep only jobs marked remote.",
+        "false"
+      ],
+      [
+        "postedWithinDays",
+        "integer",
+        "Keep only jobs posted in the last N days.",
+        "7"
+      ],
+      [
+        "includeDescription",
+        "boolean",
+        "Return the full description as text and HTML (one extra request per job on SmartRecruiters, Workday and Workable).",
+        "true"
+      ],
+      [
+        "maxItemsPerCompany",
+        "integer",
+        "Stop after this many jobs from any one career site.",
+        "100"
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many jobs in total.",
+        "500"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip jobs already returned by earlier runs (remembered for 180 days in the `career-site-jobs-seen` store of your account). Ideal for schedules.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "companies": [
+        "https://jobs.lever.co/spotify",
+        "https://jobs.ashbyhq.com/notion"
+      ],
+      "maxItems": 50
+    },
+    "output": [
+      [
+        "id",
+        "\"2a55d6c9-c564-443a-be3e-a3851db5a93b\"",
+        "The career site's job id"
+      ],
+      [
+        "title",
+        "\"Account Executive - Commercial, Spotify Technology\"",
+        "Job title"
+      ],
+      [
+        "organization",
+        "\"Spotify\"",
+        "Company"
+      ],
+      [
+        "organization_url",
+        "\"https://jobs.lever.co/spotify\"",
+        "The company's career site"
+      ],
+      [
+        "url",
+        "\"https://jobs.lever.co/spotify/2a55d6c9-…\"",
+        "Link to the job ad"
+      ],
+      [
+        "apply_url",
+        "\"https://jobs.lever.co/spotify/2a55d6c9-…/apply\"",
+        "Link to the application form"
+      ],
+      [
+        "date_posted",
+        "\"2026-10-23T15:00:40.768Z\"",
+        "When the job was posted"
+      ],
+      [
+        "location",
+        "\"New York, NY\"",
+        "Location text"
+      ],
+      [
+        "locations",
+        "[\"New York, NY\"]",
+        "Every location listed"
+      ],
+      [
+        "countries",
+        "[\"United States\"]",
+        "Countries"
+      ],
+      [
+        "remote_derived",
+        "false",
+        "True when the job is marked remote or says remote in its location"
+      ],
+      [
+        "workplace_type",
+        "\"Hybrid\"",
+        "On-site, Hybrid or Remote, when the site says"
+      ],
+      [
+        "employment_type",
+        "[\"Permanent\"]",
+        "Employment type"
+      ],
+      [
+        "departments",
+        "[\"Operations and Business Support\", \"Platform\"]",
+        "Departments or teams"
+      ],
+      [
+        "salary",
+        "null",
+        "Salary when the career site publishes one"
+      ],
+      [
+        "description_text",
+        "\"Spotify Technology is our business-to-business software team…\"",
+        "Full description as plain text"
+      ],
+      [
+        "description_html",
+        "\"<div><p>Spotify Technology is…\"",
+        "Full description as HTML"
+      ],
+      [
+        "source",
+        "\"lever\"",
+        "Which platform it came from: lever, ashby, smartrecruiters, workday or workable"
+      ],
+      [
+        "company_slug",
+        "\"spotify\"",
+        "The company's id on that platform"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-09T23:24:13.443Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(job[\"title\"], \"|\", job[\"organization\"], \"|\", job[\"location\"], \"|\", job[\"source\"])",
+    "print_js": "console.log(job.title, '|', job.organization, '|', job.location, '|', job.source);",
+    "uses": [
+      "One daily feed of new openings across a list of target companies, whatever platform each one hires on, with `onlyNew: true`.",
+      "Remote-job boards and newsletters, using `remoteOnly` and `postedWithinDays`.",
+      "Tracking which teams a company is growing (`departments`) as a sales or investment signal."
+    ],
+    "notes": [
+      "Covers Lever, Ashby, SmartRecruiters, Workday and Workable. For Greenhouse boards, use our Greenhouse Jobs Scraper.",
+      "Turn off `includeDescription` for faster, smaller runs when you only need titles and links."
+    ]
   }
 ]
