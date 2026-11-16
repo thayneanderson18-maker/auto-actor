@@ -1,6 +1,6 @@
 """Run Google Images Scraper on Apify and print the results.
 
-    pip install apify-client
+    pip install "apify-client>=3"
     export APIFY_TOKEN=...   # Apify Console -> Settings -> Integrations
     python example.py
 """
@@ -20,6 +20,5 @@ run = client.actor("daedal_quintuplet/google-images-scraper").call(
     }
 )
 
-images = client.dataset(run["defaultDatasetId"]).iterate_items()
-for image in images:
+for image in client.dataset(run.default_dataset_id).iterate_items():
     print(image["position"], image["title"], image["imageUrl"], f'{image["imageWidth"]}x{image["imageHeight"]}')

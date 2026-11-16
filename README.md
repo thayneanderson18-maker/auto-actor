@@ -11,6 +11,7 @@ Working examples for every public actor we run on the [Apify Store](https://apif
 | [Greenhouse Jobs Scraper](greenhouse-jobs-scraper/) | Every open job from any company's Greenhouse job board: title, company, locations, departments, posted date, published salary range, full description and apply link. | $0.0012 per job | [Store](https://apify.com/daedal_quintuplet/greenhouse-jobs-scraper) |
 | [Google Images Scraper](google-images-scraper/) | Google Images search results: full-size image URL, width and height, thumbnail, title, source page and website. | $0.0021 per image | [Store](https://apify.com/daedal_quintuplet/google-images-scraper) |
 | [Career Site Jobs Scraper](career-site-jobs-scraper/) | Open jobs straight from company career sites on Lever, Ashby, SmartRecruiters, Workday and Workable: title, company, location, remote flag, salary, department, posted date, full description and apply link. | $0.0015 per job | [Store](https://apify.com/daedal_quintuplet/career-site-jobs-scraper) |
+| [Flashscore Scraper](flashscore-scraper/) | Results and fixtures from any Flashscore league, cup, tennis tournament or team page: scores, half-time, sets, quarters, rounds, dates, team IDs and logos. | $0.0008 per match | [Store](https://apify.com/daedal_quintuplet/flashscore-scraper) |
 
 All actors are pay-per-event: you pay per result, nothing per month, and Apify's free plan includes $5 of usage a month.
 

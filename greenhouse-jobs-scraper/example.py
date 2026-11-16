@@ -1,6 +1,6 @@
 """Run Greenhouse Jobs Scraper on Apify and print the results.
 
-    pip install apify-client
+    pip install "apify-client>=3"
     export APIFY_TOKEN=...   # Apify Console -> Settings -> Integrations
     python example.py
 """
@@ -19,6 +19,5 @@ run = client.actor("daedal_quintuplet/greenhouse-jobs-scraper").call(
     }
 )
 
-jobs = client.dataset(run["defaultDatasetId"]).iterate_items()
-for job in jobs:
+for job in client.dataset(run.default_dataset_id).iterate_items():
     print(job["title"], "|", job["organization"], "|", job["location"], "|", job.get("salary_min") or "no salary listed")

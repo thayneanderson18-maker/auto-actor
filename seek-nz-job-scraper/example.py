@@ -1,6 +1,6 @@
 """Run Seek NZ Job Scraper on Apify and print the results.
 
-    pip install apify-client
+    pip install "apify-client>=3"
     export APIFY_TOKEN=...   # Apify Console -> Settings -> Integrations
     python example.py
 """
@@ -18,6 +18,5 @@ run = client.actor("daedal_quintuplet/seek-nz-job-scraper").call(
     }
 )
 
-jobs = client.dataset(run["defaultDatasetId"]).iterate_items()
-for job in jobs:
+for job in client.dataset(run.default_dataset_id).iterate_items():
     print(job["title"], "|", job["company"], "|", job.get("salary") or "no salary listed", "|", job["url"])

@@ -80,7 +80,7 @@ curl -X POST "https://api.apify.com/v2/acts/{USER}~{a['name']}/run-sync-get-data
 def example_py(a):
     return f'''"""Run {a['title']} on Apify and print the results.
 
-    pip install apify-client
+    pip install "apify-client>=3"
     export APIFY_TOKEN=...   # Apify Console -> Settings -> Integrations
     python example.py
 """
@@ -94,8 +94,7 @@ run = client.actor("{USER}/{a['name']}").call(
     run_input={indent_block(json.dumps(a['run_input'], indent=4))}
 )
 
-{a.get("var") or ("row" if "trends" in a["name"] else "job")}s = client.dataset(run["defaultDatasetId"]).iterate_items()
-for {a.get("var") or ("row" if "trends" in a["name"] else "job")} in {a.get("var") or ("row" if "trends" in a["name"] else "job")}s:
+for {a.get("var") or ("row" if "trends" in a["name"] else "job")} in client.dataset(run.default_dataset_id).iterate_items():
     {a['print_py']}
 '''
 

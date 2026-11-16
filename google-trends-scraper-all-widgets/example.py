@@ -1,6 +1,6 @@
 """Run Google Trends Scraper on Apify and print the results.
 
-    pip install apify-client
+    pip install "apify-client>=3"
     export APIFY_TOKEN=...   # Apify Console -> Settings -> Integrations
     python example.py
 """
@@ -20,6 +20,5 @@ run = client.actor("daedal_quintuplet/google-trends-scraper-all-widgets").call(
     }
 )
 
-rows = client.dataset(run["defaultDatasetId"]).iterate_items()
-for row in rows:
+for row in client.dataset(run.default_dataset_id).iterate_items():
     print(row["kind"], "|", row["label"], "|", row["value"])
