@@ -1135,5 +1135,214 @@
       "Flashscore shows about 100 results and 120 fixtures per page, so one URL returns at most that many; add more URLs for more.",
       "Every run's first 25 matches are free, so small checks cost only Apify compute."
     ]
+  },
+  {
+    "name": "craigslist-scraper",
+    "title": "Craigslist Scraper",
+    "var": "listing",
+    "pitch": "Craigslist listings from any site and category: for sale, cars, housing, jobs, gigs and services. Title, price, dates, full description, photos, coordinates and attributes such as condition, make and year, with an only-new mode for scheduled runs.",
+    "price": "$0.001 per listing ($1 per 1,000); the first 25 listings of every run are free",
+    "input": [
+      [
+        "startUrls",
+        "array of {url}",
+        "Craigslist search results pages (any site, category and filters) or single listing pages. Old-style (`newyork.craigslist.org/search/sss`) and new-style addresses both work.",
+        "[{\"url\": \"https://newyork.craigslist.org/search/sss?query=bike\"}]"
+      ],
+      [
+        "locations",
+        "array of strings",
+        "Instead of URLs: Craigslist site names, the part before `.craigslist.org`.",
+        "[\"newyork\", \"chicago\"]"
+      ],
+      [
+        "category",
+        "string",
+        "Category code used with `locations`, e.g. `sss` all for sale, `cta` cars & trucks, `apa` apartments, `jjj` jobs.",
+        "\"cta\""
+      ],
+      [
+        "searchQueries",
+        "array of strings",
+        "Search terms to run on every site in `locations`, one search each.",
+        "[\"honda civic\"]"
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many listings in total. One search page lists up to about 350.",
+        "100"
+      ],
+      [
+        "includeDetails",
+        "boolean",
+        "Open every listing for the full description, all photos, dates and attributes. Off returns only what the search page shows, faster.",
+        "true"
+      ],
+      [
+        "maxAgeDays",
+        "integer",
+        "Skip listings posted more than this many days ago (needs `includeDetails`).",
+        "7"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip listings already returned to you in an earlier run (remembered for 120 days). Ideal for schedules.",
+        "false"
+      ],
+      [
+        "maxConcurrency",
+        "integer",
+        "How many listing pages to open at once when `includeDetails` is on.",
+        "5"
+      ]
+    ],
+    "run_input": {
+      "startUrls": [
+        {
+          "url": "https://newyork.craigslist.org/search/sss?query=bike"
+        }
+      ],
+      "maxItems": 20
+    },
+    "output": [
+      [
+        "id",
+        "\"8001776502\"",
+        "Craigslist post id"
+      ],
+      [
+        "url",
+        "\"https://www.craigslist.org/view/d/santa-rosa-2008-honda-cbr-…\"",
+        "Link to the listing"
+      ],
+      [
+        "title",
+        "\"2008 Honda CBR 1000RR\"",
+        "Listing title"
+      ],
+      [
+        "datetime",
+        "\"2026-11-16T14:51:50-0800\"",
+        "When it was posted"
+      ],
+      [
+        "updatedAt",
+        "null",
+        "When it was last updated, if it was"
+      ],
+      [
+        "price",
+        "\"$7,000\"",
+        "Price as shown"
+      ],
+      [
+        "priceNumber",
+        "7000",
+        "Price as a number"
+      ],
+      [
+        "currency",
+        "\"USD\"",
+        "Currency"
+      ],
+      [
+        "location",
+        "\"santa rosa\"",
+        "Location text from the ad"
+      ],
+      [
+        "city",
+        "\"Santa Rosa\"",
+        "City"
+      ],
+      [
+        "region",
+        "\"CA\"",
+        "State or region"
+      ],
+      [
+        "postalCode",
+        "\"95406\"",
+        "Postal code, when given"
+      ],
+      [
+        "latitude",
+        "38.421157",
+        "Map latitude"
+      ],
+      [
+        "longitude",
+        "-122.705011",
+        "Map longitude"
+      ],
+      [
+        "area",
+        "\"sfbay\"",
+        "Craigslist site"
+      ],
+      [
+        "subarea",
+        "\"north bay\"",
+        "Sub-area"
+      ],
+      [
+        "category",
+        "\"for sale\"",
+        "Category"
+      ],
+      [
+        "subcategory",
+        "\"motorcycles\"",
+        "Subcategory"
+      ],
+      [
+        "post",
+        "\"This Bike is in excellent condition…\"",
+        "Full description (with `includeDetails`)"
+      ],
+      [
+        "pics",
+        "[\"https://images.craigslist.org/…_600x450.jpg\", …]",
+        "Photo URLs"
+      ],
+      [
+        "attributesMap",
+        "{\"year\": \"2008\", \"condition\": \"excellent\", …}",
+        "Listing attributes as key/value pairs"
+      ],
+      [
+        "condition",
+        "\"excellent\"",
+        "Condition, when given"
+      ],
+      [
+        "makeModel",
+        "\"honda cbr1000rr\"",
+        "Make and model, for vehicles"
+      ],
+      [
+        "year",
+        "2008",
+        "Year, for vehicles"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-16T23:12:24.214Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(listing[\"title\"], \"|\", listing.get(\"price\") or \"no price\", \"|\", listing.get(\"location\"), \"|\", listing[\"url\"])",
+    "print_js": "console.log(listing.title, '|', listing.price || 'no price', '|', listing.location, '|', listing.url);",
+    "uses": [
+      "A morning alert of new listings for a search (a car model, a flat in a price range) with `onlyNew: true`.",
+      "Price research: compare asking prices for the same item across cities.",
+      "Feeding listings with coordinates into a map or spreadsheet."
+    ],
+    "notes": [
+      "One Craigslist search page lists up to about 350 listings; for more, split the search by sub-area, price range or search terms.",
+      "Resumes, personals and missed connections are not supported."
+    ]
   }
 ]
