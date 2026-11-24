@@ -1344,5 +1344,675 @@
       "One Craigslist search page lists up to about 350 listings; for more, split the search by sub-area, price range or search terms.",
       "Resumes, personals and missed connections are not supported."
     ]
+  },
+  {
+    "name": "wappalyzer-tech-stack-detector",
+    "title": "Wappalyzer Alternative: Tech Stack Detector",
+    "var": "site",
+    "pitch": "The technologies any website uses: CMS, ecommerce, analytics, JavaScript frameworks, CDN, hosting and email provider, from 7,700+ open-source fingerprints with evidence, versions and confidence. An only-changes mode suits scheduled runs.",
+    "price": "$0.002 per website ($2 per 1,000); the first 25 websites of every run are free, and error rows are never charged",
+    "input": [
+      [
+        "urls",
+        "array of strings",
+        "Websites to analyze: bare domains or full URLs. One result row per website.",
+        "[\"stripe.com\", \"https://shopify.com\"]"
+      ],
+      [
+        "categories_filter",
+        "array of strings",
+        "Return only technologies in these categories, e.g. `CMS`, `Ecommerce`, `Analytics`.",
+        "[\"CMS\", \"Ecommerce\"]"
+      ],
+      [
+        "include_versions",
+        "boolean",
+        "Add the version number a site exposes (e.g. WordPress 6.6).",
+        "true"
+      ],
+      [
+        "include_confidence",
+        "boolean",
+        "Add a 0 to 100 confidence score per technology.",
+        "true"
+      ],
+      [
+        "includeDns",
+        "boolean",
+        "Also read MX, TXT, NS and SOA records to find email and DNS providers.",
+        "true"
+      ],
+      [
+        "onlyChanges",
+        "boolean",
+        "For schedules: return a site only when it is new or its technology list changed since the last run.",
+        "false"
+      ],
+      [
+        "timeout_seconds",
+        "integer",
+        "How long to wait for each site, 3 to 60 seconds.",
+        "20"
+      ],
+      [
+        "maxConcurrency",
+        "integer",
+        "How many sites to fetch at once, 1 to 50.",
+        "10"
+      ]
+    ],
+    "run_input": {
+      "urls": [
+        "https://stripe.com",
+        "https://shopify.com",
+        "https://wordpress.org"
+      ]
+    },
+    "output": [
+      [
+        "url",
+        "\"https://mailchimp.com/\"",
+        "The URL analyzed"
+      ],
+      [
+        "domain",
+        "\"mailchimp.com\"",
+        "Domain"
+      ],
+      [
+        "status_code",
+        "200",
+        "HTTP status of the page"
+      ],
+      [
+        "final_url",
+        "\"https://mailchimp.com/\"",
+        "URL after redirects"
+      ],
+      [
+        "title",
+        "\"Email & SMS Marketing Platform | Mailchimp\"",
+        "Page title"
+      ],
+      [
+        "tech_count",
+        "2",
+        "Number of technologies found"
+      ],
+      [
+        "tech_names",
+        "\"Apple iCloud Mail, Microsoft 365\"",
+        "Technology names, comma-separated"
+      ],
+      [
+        "category_list",
+        "\"Webmail, Email\"",
+        "Categories found, comma-separated"
+      ],
+      [
+        "categories",
+        "{\"Webmail\": [\"Apple iCloud Mail\", …], …}",
+        "Technologies grouped by category"
+      ],
+      [
+        "technologies",
+        "[{\"name\": …, \"category\": …, \"evidence\": …}, …]",
+        "One entry per technology, with evidence and, when enabled, version and confidence"
+      ],
+      [
+        "dns_mx",
+        "[\"mx1.intuit.iphmx.com\", …]",
+        "Mail servers (with `includeDns`)"
+      ],
+      [
+        "blocked_page",
+        "false",
+        "True when the site served a block or challenge page"
+      ],
+      [
+        "scan_time_ms",
+        "1113",
+        "How long the scan took"
+      ],
+      [
+        "scanned_at",
+        "\"2026-11-18T23:18:40.128Z\"",
+        "When it was scanned"
+      ]
+    ],
+    "print_py": "print(site[\"domain\"], \"|\", site.get(\"tech_count\"), \"|\", site.get(\"tech_names\"))",
+    "print_js": "console.log(site.domain, '|', site.tech_count, '|', site.tech_names);",
+    "uses": [
+      "Lead lists: find which sites in a list run Shopify, WordPress or a competitor's tool.",
+      "Watching competitors' stacks on a schedule with `onlyChanges: true`.",
+      "Enriching a CRM with each account's CMS, analytics and email provider."
+    ],
+    "notes": [
+      "Some technologies come from DNS records, including TXT domain-verification entries (e.g. `openai-domain-verification`). Those show services the company has an account with, not what the website itself runs on; each technology's `evidence` says where it was found.",
+      "Sites that block data-center traffic can be scanned through an Apify proxy (`proxyConfiguration`)."
+    ]
+  },
+  {
+    "name": "amazon-bestsellers-scraper",
+    "title": "Amazon Bestsellers Scraper",
+    "var": "product",
+    "pitch": "Amazon Best Sellers and Hot New Releases: the full top 100 per list with rank, ASIN, name, price, currency, stars, ratings count, URL and image, for the US, UK, DE, FR, ES, IT, CA, AU, IN and JP stores. Sub-departments and an only-new mode for scheduled runs.",
+    "price": "$0.001 per product ($1 per 1,000); the first 25 products of every run are free",
+    "input": [
+      [
+        "startUrls",
+        "array of {url}",
+        "Amazon ranking pages: Best Sellers, Hot New Releases, Movers and Shakers, Most Wished For or Gift Ideas, from any supported store.",
+        "[{\"url\": \"https://www.amazon.com/Best-Sellers-Electronics/zgbs/electronics\"}]"
+      ],
+      [
+        "maxItemsPerList",
+        "integer",
+        "How many ranked products to take from each list, from rank 1 down (lists hold at most 100).",
+        "100"
+      ],
+      [
+        "includeSubcategories",
+        "boolean",
+        "Also scrape every sub-department one level down (e.g. Electronics → Headphones).",
+        "false"
+      ],
+      [
+        "maxSubcategories",
+        "integer",
+        "Upper limit on sub-departments followed per start URL.",
+        "40"
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop the run after this many products in total; 0 means no limit.",
+        "1000"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Return only products that newly entered a list since the last run (remembered 120 days per list). Ideal for schedules.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "startUrls": [
+        {
+          "url": "https://www.amazon.com/Best-Sellers-Electronics/zgbs/electronics"
+        }
+      ],
+      "maxItemsPerList": 20
+    },
+    "output": [
+      [
+        "position",
+        "1",
+        "Rank in the list"
+      ],
+      [
+        "asin",
+        "\"B0CSP8H16R\"",
+        "Amazon ASIN"
+      ],
+      [
+        "name",
+        "\"Hex Bots - Radio-controlled Gecko…\"",
+        "Product name"
+      ],
+      [
+        "price",
+        "13.99",
+        "Price as a number (null when not shown)"
+      ],
+      [
+        "currency",
+        "\"€\"",
+        "Currency symbol"
+      ],
+      [
+        "currencyCode",
+        "\"EUR\"",
+        "Currency code"
+      ],
+      [
+        "priceText",
+        "\"€13.99\"",
+        "Price as shown"
+      ],
+      [
+        "stars",
+        "4.2",
+        "Average rating"
+      ],
+      [
+        "reviewsCount",
+        "3432",
+        "Number of ratings"
+      ],
+      [
+        "url",
+        "\"https://www.amazon.fr/-/en/Hex-Bots…/dp/B0CSP8H16R\"",
+        "Product page"
+      ],
+      [
+        "imageUrl",
+        "\"https://images-eu.ssl-images-amazon.com/images/I/…jpg\"",
+        "Product image"
+      ],
+      [
+        "categoryName",
+        "\"Best Sellers in Toys & Games\"",
+        "The list it came from"
+      ],
+      [
+        "categoryUrl",
+        "\"https://www.amazon.fr/gp/bestsellers/toys\"",
+        "List URL"
+      ],
+      [
+        "listType",
+        "\"bestsellers\"",
+        "Best Sellers, Hot New Releases and so on"
+      ],
+      [
+        "domain",
+        "\"amazon.fr\"",
+        "Amazon store"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-23T23:10:01.591Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(product[\"position\"], product[\"name\"][:60], \"|\", product.get(\"priceText\") or \"no price\", \"|\", product.get(\"stars\"))",
+    "print_js": "console.log(product.position, product.name.slice(0, 60), '|', product.priceText || 'no price', '|', product.stars);",
+    "uses": [
+      "Daily snapshots of a category's top 100 to see what's rising, with `onlyNew: true` for new entries.",
+      "Product research across Amazon stores in several countries.",
+      "Price and rating tracking for the bestsellers in your niche."
+    ],
+    "notes": [
+      "Amazon's ranking lists hold at most 100 products each.",
+      "The actor picks the right Apify proxy per store by default; keep the default `proxyConfiguration`."
+    ]
+  },
+  {
+    "name": "autoscout24-scraper",
+    "title": "AutoScout24 Scraper",
+    "var": "car",
+    "pitch": "AutoScout24 car listings from 8 European countries: price, mileage, registration, fuel, power, equipment, description, photos and dealer details. Paste any search URL or set make and model, with an only-new mode for scheduled runs.",
+    "price": "$0.0008 per listing ($0.80 per 1,000); the first 25 listings of every run are free",
+    "input": [
+      [
+        "startUrls",
+        "array of {url}",
+        "AutoScout24 search results pages (address contains `/lst/`) or single listings, on .com, .de, .it, .fr, .nl, .be, .at, .es or .lu.",
+        "[{\"url\": \"https://www.autoscout24.com/lst/bmw/x5?atype=C&sort=age&desc=1\"}]"
+      ],
+      [
+        "make",
+        "string",
+        "Instead of URLs: car make as in AutoScout24 addresses, e.g. `volkswagen`, `bmw`.",
+        "\"volkswagen\""
+      ],
+      [
+        "model",
+        "string",
+        "Model within the make, e.g. `golf`.",
+        "\"golf\""
+      ],
+      [
+        "countries",
+        "array of strings",
+        "Countries to search with `make`: DE, AT, BE, ES, FR, IT, LU, NL.",
+        "[\"DE\", \"AT\"]"
+      ],
+      [
+        "priceFrom / priceTo",
+        "integer",
+        "Price range in euros.",
+        "5000 / 20000"
+      ],
+      [
+        "yearFrom / yearTo",
+        "integer",
+        "First-registration year range.",
+        "2018 / 2022"
+      ],
+      [
+        "mileageTo",
+        "integer",
+        "Highest mileage in km.",
+        "100000"
+      ],
+      [
+        "fuelTypes",
+        "array of strings",
+        "e.g. `petrol`, `diesel`, `electric`, `hybrid-petrol`.",
+        "[\"diesel\", \"electric\"]"
+      ],
+      [
+        "condition",
+        "string",
+        "`used`, `new` or `any`.",
+        "\"used\""
+      ],
+      [
+        "sortBy",
+        "string",
+        "`standard`, `newest`, `price` or `mileage`.",
+        "\"newest\""
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many listings in total.",
+        "100"
+      ],
+      [
+        "includeDetails",
+        "boolean",
+        "Open every listing for the description, equipment, body type, colour, owners and more.",
+        "true"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip listings already returned to you (remembered 180 days). Ideal for schedules.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "startUrls": [
+        {
+          "url": "https://www.autoscout24.com/lst/bmw/x5?atype=C&sort=age&desc=1"
+        }
+      ],
+      "maxItems": 20
+    },
+    "output": [
+      [
+        "id",
+        "\"af9e7c3a-8b1c-4c2a-b4f5-3a12582a24e1\"",
+        "Listing id"
+      ],
+      [
+        "url",
+        "\"https://www.autoscout24.es/anuncios/seat-ibiza-…\"",
+        "Link to the listing"
+      ],
+      [
+        "title",
+        "\"SEAT Ibiza 1.5 TSI S&S FR XS Edition DSG7 150\"",
+        "Listing title"
+      ],
+      [
+        "make",
+        "\"SEAT\"",
+        "Make"
+      ],
+      [
+        "model",
+        "\"Ibiza\"",
+        "Model"
+      ],
+      [
+        "rawPrice",
+        "14950",
+        "Price as a number"
+      ],
+      [
+        "currency",
+        "\"EUR\"",
+        "Currency"
+      ],
+      [
+        "mileageKm",
+        "90000",
+        "Mileage in km"
+      ],
+      [
+        "firstRegistration",
+        "\"03/2022\"",
+        "First registration"
+      ],
+      [
+        "year",
+        "2022",
+        "Year"
+      ],
+      [
+        "fuelType",
+        "\"Gasolina\"",
+        "Fuel type as shown on the site"
+      ],
+      [
+        "gearbox",
+        "\"Automático\"",
+        "Gearbox"
+      ],
+      [
+        "powerKw",
+        "110",
+        "Power in kW"
+      ],
+      [
+        "powerHp",
+        "150",
+        "Power in hp"
+      ],
+      [
+        "offerType",
+        "\"Used\"",
+        "Used or new"
+      ],
+      [
+        "city",
+        "\"Igualada\"",
+        "Location"
+      ],
+      [
+        "countryCode",
+        "\"ES\"",
+        "Country"
+      ],
+      [
+        "seller",
+        "\"Dealer\"",
+        "Dealer or private"
+      ],
+      [
+        "dealerName",
+        "\"ANOIA MOTOR SEAT - HYUNDAI\"",
+        "Dealer name"
+      ],
+      [
+        "images",
+        "[\"https://prod.pictures.autoscout24.net/…\", …]",
+        "Photo URLs"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-17T23:16:40.495Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(car[\"title\"], \"|\", car.get(\"rawPrice\"), car.get(\"currency\"), \"|\", car.get(\"mileageKm\"), \"km |\", car.get(\"city\"))",
+    "print_js": "console.log(car.title, '|', car.rawPrice, car.currency, '|', car.mileageKm, 'km |', car.city);",
+    "uses": [
+      "A daily alert of new listings for a make and model with `sortBy: \"newest\"` and `onlyNew: true`.",
+      "Used-car price research across countries and years.",
+      "Dealer stock monitoring."
+    ],
+    "notes": [
+      "AutoScout24 shows 20 listings per page; the actor follows the pages up to `maxItems`.",
+      "Text fields such as `fuelType` come in the language of the site you search."
+    ]
+  },
+  {
+    "name": "flipkart-scraper",
+    "title": "Flipkart Scraper",
+    "var": "product",
+    "pitch": "Flipkart search, category and product pages: title, brand, price, MRP, discount, rating, star breakdown, key specs, stock, images and URL. No residential proxy needed, with an only-new mode for scheduled runs.",
+    "price": "$0.0008 per product ($0.80 per 1,000); the first 25 products of every run are free",
+    "input": [
+      [
+        "searchQueries",
+        "array of strings",
+        "Words to search on Flipkart, one search each.",
+        "[\"iphone 15\", \"running shoes\"]"
+      ],
+      [
+        "startUrls",
+        "array of {url}",
+        "Flipkart search, category (`/pr?sid=`) or product (`/p/itm`) pages.",
+        "[{\"url\": \"https://www.flipkart.com/mobiles/pr?sid=tyy,4io&marketplace=FLIPKART\"}]"
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop each search or URL after this many unique products.",
+        "100"
+      ],
+      [
+        "sort",
+        "string",
+        "`relevance`, `popularity`, `price_asc`, `price_desc` or `newest`.",
+        "\"price_asc\""
+      ],
+      [
+        "includeDetails",
+        "boolean",
+        "Also open each product page for the description, colour, return window and full-size photos.",
+        "false"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Skip products already returned to you (remembered 120 days). Leave off for price tracking.",
+        "false"
+      ]
+    ],
+    "run_input": {
+      "searchQueries": [
+        "iphone"
+      ],
+      "maxItems": 20
+    },
+    "output": [
+      [
+        "id",
+        "\"MOBHQV9YCUG4ZQZK\"",
+        "Flipkart product id"
+      ],
+      [
+        "title",
+        "\"Apple iPhone 17 (Black, 256 GB)\"",
+        "Product title"
+      ],
+      [
+        "brand",
+        "\"Apple\"",
+        "Brand"
+      ],
+      [
+        "category",
+        "\"Mobile\"",
+        "Category"
+      ],
+      [
+        "price",
+        "89100",
+        "Selling price"
+      ],
+      [
+        "original_price",
+        "99900",
+        "MRP"
+      ],
+      [
+        "discount_percent",
+        "10",
+        "Discount in percent"
+      ],
+      [
+        "rating",
+        "4.6",
+        "Average rating"
+      ],
+      [
+        "rating_count",
+        "50678",
+        "Number of ratings"
+      ],
+      [
+        "review_count",
+        "3115",
+        "Number of reviews"
+      ],
+      [
+        "rating_breakdown",
+        "{\"1\": 2085, …, \"5\": 40103}",
+        "Ratings per star"
+      ],
+      [
+        "key_specs",
+        "[\"256 GB ROM\", \"16.0 cm (6.3 inch) Super Retina XDR Display\", …]",
+        "Key specifications"
+      ],
+      [
+        "availability_status",
+        "\"IN_STOCK\"",
+        "Stock status"
+      ],
+      [
+        "is_flipkart_assured",
+        "true",
+        "Flipkart Assured badge"
+      ],
+      [
+        "currency",
+        "\"INR\"",
+        "Currency"
+      ],
+      [
+        "image_url",
+        "\"https://rukmini1.flixcart.com/image/…\"",
+        "Main image"
+      ],
+      [
+        "url",
+        "\"https://www.flipkart.com/apple-iphone-17-black-256-gb/p/…\"",
+        "Product page"
+      ],
+      [
+        "position",
+        "1",
+        "Position in the results"
+      ],
+      [
+        "search_query",
+        "\"iphone\"",
+        "The search that found it"
+      ],
+      [
+        "fetched_at",
+        "\"2026-11-19T23:15:21.086Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(product[\"title\"], \"|\", product.get(\"price\"), product.get(\"currency\"), \"|\", product.get(\"rating\"))",
+    "print_js": "console.log(product.title, '|', product.price, product.currency, '|', product.rating);",
+    "uses": [
+      "Daily price tracking for a list of products or a search.",
+      "Discount and rating comparisons across a category.",
+      "New-listing alerts with `onlyNew: true`."
+    ],
+    "notes": [
+      "Flipkart shows 24 to 40 products per page; the actor follows pages up to `maxItems` per search.",
+      "Turn on `includeDetails` only when you need the description or full-size photos: it opens every product page."
+    ]
   }
 ]
