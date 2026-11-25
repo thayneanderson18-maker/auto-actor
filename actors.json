@@ -2014,5 +2014,191 @@
       "Flipkart shows 24 to 40 products per page; the actor follows pages up to `maxItems` per search.",
       "Turn on `includeDetails` only when you need the description or full-size photos: it opens every product page."
     ]
+  },
+  {
+    "name": "gumroad-scraper",
+    "title": "Gumroad Scraper",
+    "var": "product",
+    "pitch": "Gumroad products from Discover searches, categories, tags, creator storefronts and product pages: name, price, USD price, rating, seller, type and link, with optional description, sales count and variants. Price, rating and file-type filters, plus an only-new mode for scheduled runs.",
+    "price": "$0.001 per product ($1 per 1,000); the first 25 products of every run are free",
+    "input": [
+      [
+        "searchQueries",
+        "array of strings",
+        "Searches in Gumroad Discover, one per entry.",
+        "[\"notion template\", \"lightroom presets\"]"
+      ],
+      [
+        "tags",
+        "array of strings",
+        "Gumroad tags to browse, one listing per tag.",
+        "[\"procreate\"]"
+      ],
+      [
+        "categories",
+        "array of strings",
+        "Category paths as in Gumroad URLs, e.g. `design`, `3d/vrchat`.",
+        "[\"3d/vrchat\"]"
+      ],
+      [
+        "startUrls",
+        "array of {url}",
+        "Discover searches, category pages, creator storefronts or single products.",
+        "[{\"url\": \"https://gumroad.com/discover?query=notion\"}]"
+      ],
+      [
+        "sort",
+        "string",
+        "Order of results, as on Gumroad Discover, e.g. `best_sellers`.",
+        "\"best_sellers\""
+      ],
+      [
+        "minPrice / maxPrice",
+        "integer",
+        "Price range in US dollars; 0 means no limit.",
+        "5 / 50"
+      ],
+      [
+        "minRating",
+        "integer",
+        "Minimum average star rating, 1 to 4.",
+        "4"
+      ],
+      [
+        "fileTypes",
+        "array of strings",
+        "Only products containing these file types, e.g. `pdf`, `zip`.",
+        "[\"pdf\"]"
+      ],
+      [
+        "maxItems",
+        "integer",
+        "Stop after this many products in total; 0 means no limit.",
+        "100"
+      ],
+      [
+        "maxItemsPerSource",
+        "integer",
+        "At most this many products from each input.",
+        "200"
+      ],
+      [
+        "productDetails",
+        "boolean",
+        "Also open each product page for the description, sales count (when shown), rating breakdown, covers and variants.",
+        "false"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Return only products not returned before under the same `stateKey` (remembered 180 days). Ideal for schedules.",
+        "false"
+      ],
+      [
+        "stateKey",
+        "string",
+        "Name of the memory `onlyNew` uses; one per schedule.",
+        "\"notion-templates\""
+      ]
+    ],
+    "run_input": {
+      "searchQueries": [
+        "notion template"
+      ],
+      "maxItems": 20
+    },
+    "output": [
+      [
+        "id",
+        "\"rS7gSD0HH4dRnYrlzIQHkg==\"",
+        "Gumroad product id"
+      ],
+      [
+        "name",
+        "\"Headquarters Notion Productivity Template\"",
+        "Product name"
+      ],
+      [
+        "url",
+        "\"https://productivesetups.gumroad.com/l/headquarters\"",
+        "Product page"
+      ],
+      [
+        "price",
+        "79",
+        "Price in the seller's currency"
+      ],
+      [
+        "currency_code",
+        "\"AUD\"",
+        "Seller's currency"
+      ],
+      [
+        "price_usd",
+        "52.45",
+        "Price converted to US dollars"
+      ],
+      [
+        "is_pay_what_you_want",
+        "false",
+        "Pay-what-you-want pricing"
+      ],
+      [
+        "native_type",
+        "\"digital\"",
+        "Product type, e.g. digital, bundle, course, membership"
+      ],
+      [
+        "recurrence",
+        "null",
+        "Billing period for subscriptions"
+      ],
+      [
+        "rating_count",
+        "202",
+        "Number of ratings"
+      ],
+      [
+        "rating_average",
+        "5",
+        "Average rating"
+      ],
+      [
+        "seller_name",
+        "\"Productive Setups\"",
+        "Creator"
+      ],
+      [
+        "thumbnail_url",
+        "\"https://public-files.gumroad.com/…\"",
+        "Thumbnail"
+      ],
+      [
+        "search_query",
+        "\"notion template\"",
+        "The search that found it"
+      ],
+      [
+        "position",
+        "1",
+        "Position in the results"
+      ],
+      [
+        "scraped_at",
+        "\"2026-11-24T23:36:31.754Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(product[\"name\"][:60], \"|\", product.get(\"price_usd\"), \"USD |\", product.get(\"rating_average\"), f'({product.get(\"rating_count\")})', \"|\", product.get(\"seller_name\"))",
+    "print_js": "console.log(product.name.slice(0, 60), '|', product.price_usd, 'USD |', product.rating_average, `(${product.rating_count})`, '|', product.seller_name);",
+    "uses": [
+      "Market research for a digital product: prices, ratings and top sellers in a niche.",
+      "Watching a search or tag for new products with `onlyNew: true`.",
+      "Tracking competitors' storefronts and price changes."
+    ],
+    "notes": [
+      "Gumroad Discover returns 36 products per page; the actor follows pages until your limits or the results run out.",
+      "Sales counts only appear with `productDetails` on, and only when the seller shows them."
+    ]
   }
 ]
