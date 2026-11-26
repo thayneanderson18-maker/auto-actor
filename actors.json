@@ -2200,5 +2200,209 @@
       "Gumroad Discover returns 36 products per page; the actor follows pages until your limits or the results run out.",
       "Sales counts only appear with `productDetails` on, and only when the seller shows them."
     ]
+  },
+  {
+    "name": "builtin-jobs-scraper",
+    "title": "Built In Jobs Scraper",
+    "pitch": "Tech jobs from builtin.com: title, company, location, remote or hybrid, level, salary range, skills, posted date, full description and benefits. Keyword, location, category and date filters, company job pages, and an only-new mode for scheduled runs.",
+    "price": "$0.0009 per job ($0.90 per 1,000); the first 25 jobs of every run are free",
+    "input": [
+      [
+        "searchQueries",
+        "array of strings",
+        "Job titles or keywords, one search each. Leave empty to browse the newest jobs with the filters below.",
+        "[\"data engineer\", \"product manager\"]"
+      ],
+      [
+        "location",
+        "string",
+        "City and state, a US state, or a city and country; `Remote` for remote jobs.",
+        "\"Austin, TX\""
+      ],
+      [
+        "startUrls",
+        "array of strings",
+        "builtin.com search, category, company job pages or single job links.",
+        "[\"https://builtin.com/company/stripe/jobs\"]"
+      ],
+      [
+        "remoteMode",
+        "string",
+        "Keep only remote, hybrid or on-site jobs; `any` for all.",
+        "\"remote\""
+      ],
+      [
+        "category",
+        "string",
+        "One Built In job category, e.g. `data-analytics`.",
+        "\"data-analytics\""
+      ],
+      [
+        "experienceLevel",
+        "string",
+        "One experience level, e.g. `senior`.",
+        "\"senior\""
+      ],
+      [
+        "postedWithinDays",
+        "string",
+        "`1`, `3`, `7` or `30` days; `any` for any time.",
+        "\"7\""
+      ],
+      [
+        "maxResultsPerQuery",
+        "integer",
+        "Most jobs per keyword or URL; 0 for no limit.",
+        "100"
+      ],
+      [
+        "maxTotalResults",
+        "integer",
+        "Stop the run after this many jobs; 0 for no limit.",
+        "500"
+      ],
+      [
+        "fetchDescription",
+        "boolean",
+        "Open each job page for the full description, exact salary, addresses and benefits.",
+        "true"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Return only jobs earlier runs with the same `stateKey` haven't returned. Ideal for schedules.",
+        "false"
+      ],
+      [
+        "stateKey",
+        "string",
+        "Name of the memory `onlyNew` uses; one per saved search.",
+        "\"austin-data-jobs\""
+      ]
+    ],
+    "run_input": {
+      "searchQueries": [
+        "data engineer"
+      ],
+      "maxTotalResults": 20
+    },
+    "output": [
+      [
+        "jobId",
+        "\"12480644\"",
+        "Built In job id"
+      ],
+      [
+        "title",
+        "\"Data Engineer 5 (Senior Manager, IC)-Enterprise Data Tech\"",
+        "Job title"
+      ],
+      [
+        "jobUrl",
+        "\"https://builtin.com/job/…/12480644\"",
+        "Link to the job"
+      ],
+      [
+        "company",
+        "\"Capital One\"",
+        "Employer"
+      ],
+      [
+        "industries",
+        "[\"Fintech\", \"Machine Learning\", …]",
+        "Company industries"
+      ],
+      [
+        "location",
+        "\"McLean, VA, USA; Richmond, VA, USA; …\"",
+        "Locations as text"
+      ],
+      [
+        "locations",
+        "[\"McLean, VA, USA\", …]",
+        "Every location"
+      ],
+      [
+        "isRemote",
+        "false",
+        "Remote job"
+      ],
+      [
+        "workplaceType",
+        "\"Hybrid\"",
+        "Remote, Hybrid or In-Office"
+      ],
+      [
+        "experienceLevel",
+        "\"Senior level\"",
+        "Experience level"
+      ],
+      [
+        "employmentType",
+        "\"Full-Time\"",
+        "Employment type"
+      ],
+      [
+        "skills",
+        "[\"AWS\", \"Databricks\", …]",
+        "Skills listed"
+      ],
+      [
+        "salaryText",
+        "\"209K-286K Annually\"",
+        "Salary as shown"
+      ],
+      [
+        "salaryMin",
+        "209000",
+        "Lowest salary"
+      ],
+      [
+        "salaryMax",
+        "286200",
+        "Highest salary"
+      ],
+      [
+        "salaryCurrency",
+        "\"USD\"",
+        "Currency"
+      ],
+      [
+        "salaryPeriod",
+        "\"year\"",
+        "Pay period"
+      ],
+      [
+        "description",
+        "\"Data Engineer 5 …\"",
+        "Full description (with `fetchDescription`)"
+      ],
+      [
+        "benefits",
+        "[\"Offers 401(K)\", …]",
+        "Benefits (with `fetchDescription`)"
+      ],
+      [
+        "postedAt",
+        "\"2026-11-25T20:09:02Z\"",
+        "When it was posted"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-25T23:27:27.135Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(job[\"title\"][:60], \"|\", job[\"company\"], \"|\", job.get(\"workplaceType\"), \"|\", job.get(\"salaryText\") or \"no salary listed\")",
+    "print_js": "console.log(job.title.slice(0, 60), '|', job.company, '|', job.workplaceType, '|', job.salaryText || 'no salary listed');",
+    "uses": [
+      "A daily feed of new tech jobs for a role and city with `onlyNew: true`.",
+      "Salary benchmarking from the ranges employers publish.",
+      "Tracking hiring at specific companies through their Built In job pages."
+    ],
+    "notes": [
+      "Built In mostly lists US jobs, plus some in other countries; leave `location` empty for the whole US.",
+      "Turn off `fetchDescription` for faster runs with only the search-card fields."
+    ]
   }
 ]

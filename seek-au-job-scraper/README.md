@@ -72,3 +72,4 @@ curl -X POST "https://api.apify.com/v2/acts/daedal_quintuplet~seek-au-job-scrape
 - [AutoScout24 Scraper](https://apify.com/daedal_quintuplet/autoscout24-scraper): AutoScout24 car listings from 8 European countries: price, mileage, registration, fuel, power, equipment, description, photos and dealer details.
 - [Flipkart Scraper](https://apify.com/daedal_quintuplet/flipkart-scraper): Flipkart search, category and product pages: title, brand, price, MRP, discount, rating, star breakdown, key specs, stock, images and URL.
 - [Gumroad Scraper](https://apify.com/daedal_quintuplet/gumroad-scraper): Gumroad products from Discover searches, categories, tags, creator storefronts and product pages: name, price, USD price, rating, seller, type and link, with optional description, sales count and variants.
+- [Built In Jobs Scraper](https://apify.com/daedal_quintuplet/builtin-jobs-scraper): Tech jobs from builtin.

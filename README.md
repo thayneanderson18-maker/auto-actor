@@ -18,6 +18,7 @@ Working examples for every public actor we run on the [Apify Store](https://apif
 | [AutoScout24 Scraper](autoscout24-scraper/) | AutoScout24 car listings from 8 European countries: price, mileage, registration, fuel, power, equipment, description, photos and dealer details. | $0.0008 per listing | [Store](https://apify.com/daedal_quintuplet/autoscout24-scraper) |
 | [Flipkart Scraper](flipkart-scraper/) | Flipkart search, category and product pages: title, brand, price, MRP, discount, rating, star breakdown, key specs, stock, images and URL. | $0.0008 per product | [Store](https://apify.com/daedal_quintuplet/flipkart-scraper) |
 | [Gumroad Scraper](gumroad-scraper/) | Gumroad products from Discover searches, categories, tags, creator storefronts and product pages: name, price, USD price, rating, seller, type and link, with optional description, sales count and variants. | $0.001 per product | [Store](https://apify.com/daedal_quintuplet/gumroad-scraper) |
+| [Built In Jobs Scraper](builtin-jobs-scraper/) | Tech jobs from builtin. | $0.0009 per job | [Store](https://apify.com/daedal_quintuplet/builtin-jobs-scraper) |
 
 All actors are pay-per-event: you pay per result, nothing per month, and Apify's free plan includes $5 of usage a month.
 
