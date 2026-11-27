@@ -92,3 +92,4 @@ curl -X POST "https://api.apify.com/v2/acts/daedal_quintuplet~craigslist-scraper
 - [Flipkart Scraper](https://apify.com/daedal_quintuplet/flipkart-scraper): Flipkart search, category and product pages: title, brand, price, MRP, discount, rating, star breakdown, key specs, stock, images and URL.
 - [Gumroad Scraper](https://apify.com/daedal_quintuplet/gumroad-scraper): Gumroad products from Discover searches, categories, tags, creator storefronts and product pages: name, price, USD price, rating, seller, type and link, with optional description, sales count and variants.
 - [Built In Jobs Scraper](https://apify.com/daedal_quintuplet/builtin-jobs-scraper): Tech jobs from builtin.
+- [TradingView Screener Scraper](https://apify.com/daedal_quintuplet/tradingview-screener-scraper): TradingView screener data for stocks in 45 markets, crypto, forex and futures: price, change, volume, market cap, P/E, RSI, MACD, moving averages, technical rating and performance.

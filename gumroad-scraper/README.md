@@ -87,3 +87,4 @@ curl -X POST "https://api.apify.com/v2/acts/daedal_quintuplet~gumroad-scraper/ru
 - [AutoScout24 Scraper](https://apify.com/daedal_quintuplet/autoscout24-scraper): AutoScout24 car listings from 8 European countries: price, mileage, registration, fuel, power, equipment, description, photos and dealer details.
 - [Flipkart Scraper](https://apify.com/daedal_quintuplet/flipkart-scraper): Flipkart search, category and product pages: title, brand, price, MRP, discount, rating, star breakdown, key specs, stock, images and URL.
 - [Built In Jobs Scraper](https://apify.com/daedal_quintuplet/builtin-jobs-scraper): Tech jobs from builtin.
+- [TradingView Screener Scraper](https://apify.com/daedal_quintuplet/tradingview-screener-scraper): TradingView screener data for stocks in 45 markets, crypto, forex and futures: price, change, volume, market cap, P/E, RSI, MACD, moving averages, technical rating and performance.

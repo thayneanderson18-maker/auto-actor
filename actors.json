@@ -2404,5 +2404,223 @@
       "Built In mostly lists US jobs, plus some in other countries; leave `location` empty for the whole US.",
       "Turn off `fetchDescription` for faster runs with only the search-card fields."
     ]
+  },
+  {
+    "name": "tradingview-screener-scraper",
+    "title": "TradingView Screener Scraper",
+    "var": "row",
+    "pitch": "TradingView screener data for stocks in 45 markets, crypto, forex and futures: price, change, volume, market cap, P/E, RSI, MACD, moving averages, technical rating and performance. Ready-made presets, custom filters, symbol lookups and an only-new mode for scheduled screens.",
+    "price": "$0.001 per row ($1 per 1,000); the first 25 rows of every run are free",
+    "input": [
+      [
+        "market",
+        "string",
+        "Which screener to scan: a country's stock market (`america` = US), `crypto`, `coin`, `forex`, `futures`, `bond`, `cfd` or `global`.",
+        "\"america\""
+      ],
+      [
+        "preset",
+        "string",
+        "A ready-made screen, e.g. `top_gainers` or `oversold_rsi`. Leave empty to scan the whole market with your own filters.",
+        "\"top_gainers\""
+      ],
+      [
+        "minMarketCap",
+        "integer",
+        "Only symbols worth at least this many US dollars; 0 turns it off.",
+        "1000000000"
+      ],
+      [
+        "filters",
+        "array of objects",
+        "Extra conditions, each `{\"left\": field, \"operation\": op, \"right\": value}`.",
+        "[{\"left\": \"RSI\", \"operation\": \"less\", \"right\": 40}]"
+      ],
+      [
+        "sortBy",
+        "string",
+        "Field to sort by, e.g. `volume`, `marketCap`, `changePercent`, `rsi`.",
+        "\"marketCap\""
+      ],
+      [
+        "sortOrder",
+        "string",
+        "`desc` or `asc`.",
+        "\"desc\""
+      ],
+      [
+        "maxResults",
+        "integer",
+        "Most rows to return; 0 returns every match (a full US scan is about 20,000 rows).",
+        "100"
+      ],
+      [
+        "symbols",
+        "array of strings",
+        "Look up specific symbols instead of screening, as `EXCHANGE:SYMBOL`.",
+        "[\"NASDAQ:AAPL\", \"BINANCE:BTCUSDT\"]"
+      ],
+      [
+        "searchQueries",
+        "array of strings",
+        "Company, coin or ticker names to look up with TradingView symbol search.",
+        "[\"Tesla\"]"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "For schedules: return only symbols that newly match the screen since the last run with the same `stateKey`.",
+        "false"
+      ],
+      [
+        "stateKey",
+        "string",
+        "Name of the memory `onlyNew` uses; one per scheduled screen.",
+        "\"us-oversold-daily\""
+      ]
+    ],
+    "run_input": {
+      "market": "america",
+      "preset": "top_gainers",
+      "maxResults": 20
+    },
+    "output": [
+      [
+        "symbol",
+        "\"MRNA\"",
+        "Ticker"
+      ],
+      [
+        "fullSymbol",
+        "\"NASDAQ:MRNA\"",
+        "Exchange and ticker"
+      ],
+      [
+        "name",
+        "\"Moderna, Inc.\"",
+        "Name"
+      ],
+      [
+        "exchange",
+        "\"NASDAQ\"",
+        "Exchange"
+      ],
+      [
+        "type",
+        "\"stock\"",
+        "stock, dr, fund, crypto and so on"
+      ],
+      [
+        "currency",
+        "\"USD\"",
+        "Price currency"
+      ],
+      [
+        "close",
+        "220.84",
+        "Last price"
+      ],
+      [
+        "changePercent",
+        "-2.88",
+        "Change today, %"
+      ],
+      [
+        "volume",
+        "6812616",
+        "Volume today"
+      ],
+      [
+        "relativeVolume",
+        "0.85",
+        "Volume compared with the 10-day average"
+      ],
+      [
+        "marketCap",
+        "89356493904",
+        "Market capitalisation"
+      ],
+      [
+        "peRatio",
+        "null",
+        "Price/earnings ratio"
+      ],
+      [
+        "eps",
+        "-7.068",
+        "Earnings per share"
+      ],
+      [
+        "dividendYield",
+        "0",
+        "Dividend yield, %"
+      ],
+      [
+        "rsi",
+        "51.1",
+        "RSI (14)"
+      ],
+      [
+        "macdValue",
+        "-0.115",
+        "MACD"
+      ],
+      [
+        "sma50",
+        "212.37",
+        "50-day simple moving average (also `ema10`…`sma200`)"
+      ],
+      [
+        "recommendationAll",
+        "0.22",
+        "TradingView technical rating, −1 (strong sell) to 1 (strong buy)"
+      ],
+      [
+        "recommendationLabel",
+        "\"buy\"",
+        "The rating as a word"
+      ],
+      [
+        "perfYTD",
+        "640.33",
+        "Performance year to date, % (also week, month, 3/6 months, year)"
+      ],
+      [
+        "sector",
+        "\"Health Technology\"",
+        "Sector"
+      ],
+      [
+        "industry",
+        "\"Biotechnology\"",
+        "Industry"
+      ],
+      [
+        "country",
+        "\"United States\"",
+        "Country"
+      ],
+      [
+        "url",
+        "\"https://www.tradingview.com/symbols/NASDAQ-MRNA/\"",
+        "TradingView page"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-26T23:09:54.087Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print(row[\"fullSymbol\"], \"|\", row.get(\"close\"), row.get(\"currency\"), \"|\", round(row.get(\"changePercent\") or 0, 2), \"% |\", row.get(\"recommendationLabel\"))",
+    "print_js": "console.log(row.fullSymbol, '|', row.close, row.currency, '|', (row.changePercent ?? 0).toFixed(2), '% |', row.recommendationLabel);",
+    "uses": [
+      "A daily list of stocks that newly turned oversold or broke out, with a preset or filters and `onlyNew: true`.",
+      "Snapshots of fundamentals and technicals for a watchlist of symbols, into a spreadsheet.",
+      "Crypto and forex screens with the same fields as stocks."
+    ],
+    "notes": [
+      "Data is TradingView's screener data, which can be delayed by the exchange; it is not for trading decisions on its own.",
+      "Stock-market presets keep primary listings of liquid companies (market cap over $300M, 10-day average volume over 100k)."
+    ]
   }
 ]
