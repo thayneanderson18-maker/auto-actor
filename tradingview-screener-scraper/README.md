@@ -95,3 +95,4 @@ curl -X POST "https://api.apify.com/v2/acts/daedal_quintuplet~tradingview-screen
 - [Flipkart Scraper](https://apify.com/daedal_quintuplet/flipkart-scraper): Flipkart search, category and product pages: title, brand, price, MRP, discount, rating, star breakdown, key specs, stock, images and URL.
 - [Gumroad Scraper](https://apify.com/daedal_quintuplet/gumroad-scraper): Gumroad products from Discover searches, categories, tags, creator storefronts and product pages: name, price, USD price, rating, seller, type and link, with optional description, sales count and variants.
 - [Built In Jobs Scraper](https://apify.com/daedal_quintuplet/builtin-jobs-scraper): Tech jobs from builtin.
+- [Immoweb Scraper](https://apify.com/daedal_quintuplet/immoweb-scraper): Belgian real estate from Immoweb: houses, apartments, land and offices for sale or rent, with price, address, coordinates, bedrooms, living area, EPC, photos and agency, plus optional full details.

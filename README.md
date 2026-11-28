@@ -20,6 +20,7 @@ Working examples for every public actor we run on the [Apify Store](https://apif
 | [Gumroad Scraper](gumroad-scraper/) | Gumroad products from Discover searches, categories, tags, creator storefronts and product pages: name, price, USD price, rating, seller, type and link, with optional description, sales count and variants. | $0.001 per product | [Store](https://apify.com/daedal_quintuplet/gumroad-scraper) |
 | [Built In Jobs Scraper](builtin-jobs-scraper/) | Tech jobs from builtin. | $0.0009 per job | [Store](https://apify.com/daedal_quintuplet/builtin-jobs-scraper) |
 | [TradingView Screener Scraper](tradingview-screener-scraper/) | TradingView screener data for stocks in 45 markets, crypto, forex and futures: price, change, volume, market cap, P/E, RSI, MACD, moving averages, technical rating and performance. | $0.001 per row | [Store](https://apify.com/daedal_quintuplet/tradingview-screener-scraper) |
+| [Immoweb Scraper](immoweb-scraper/) | Belgian real estate from Immoweb: houses, apartments, land and offices for sale or rent, with price, address, coordinates, bedrooms, living area, EPC, photos and agency, plus optional full details. | $0.0009 per listing | [Store](https://apify.com/daedal_quintuplet/immoweb-scraper) |
 
 All actors are pay-per-event: you pay per result, nothing per month, and Apify's free plan includes $5 of usage a month.
 

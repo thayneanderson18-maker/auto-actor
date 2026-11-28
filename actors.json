@@ -2622,5 +2622,231 @@
       "Data is TradingView's screener data, which can be delayed by the exchange; it is not for trading decisions on its own.",
       "Stock-market presets keep primary listings of liquid companies (market cap over $300M, 10-day average volume over 100k)."
     ]
+  },
+  {
+    "name": "immoweb-scraper",
+    "title": "Immoweb Scraper",
+    "var": "listing",
+    "pitch": "Belgian real estate from Immoweb: houses, apartments, land and offices for sale or rent, with price, address, coordinates, bedrooms, living area, EPC, photos and agency, plus optional full details. Search URLs or filters, and an only-new mode for scheduled runs.",
+    "price": "$0.0009 per listing ($0.90 per 1,000); the first 25 listings of every run are free",
+    "input": [
+      [
+        "startUrls",
+        "array of strings",
+        "Immoweb search result URLs in any language (set filters on immoweb.be and copy the address bar), or single listing URLs.",
+        "[\"https://www.immoweb.be/en/search/apartment/for-rent?countries=BE&postalCodes=1050&orderBy=newest\"]"
+      ],
+      [
+        "propertyType",
+        "string",
+        "Instead of URLs: the kind of property, e.g. `apartment`.",
+        "\"apartment\""
+      ],
+      [
+        "transactionType",
+        "string",
+        "`for-sale` or `for-rent`.",
+        "\"for-rent\""
+      ],
+      [
+        "postalCodes",
+        "string",
+        "Belgian postal codes, comma-separated; empty for all of Belgium.",
+        "\"1000, 1050, 9000\""
+      ],
+      [
+        "minPrice / maxPrice",
+        "integer",
+        "Price range in euros (monthly rent for rentals).",
+        "200000 / 450000"
+      ],
+      [
+        "minBedrooms / maxBedrooms",
+        "integer",
+        "Bedroom range.",
+        "2 / 4"
+      ],
+      [
+        "minSurface / maxSurface",
+        "integer",
+        "Living-area range in m².",
+        "80 / 200"
+      ],
+      [
+        "epcScores",
+        "string",
+        "Energy labels to keep, comma-separated.",
+        "\"A, B, C\""
+      ],
+      [
+        "sortBy",
+        "string",
+        "Result order; `newest` suits only-new mode.",
+        "\"newest\""
+      ],
+      [
+        "maxResults",
+        "integer",
+        "Stop after this many listings; 0 for no limit.",
+        "500"
+      ],
+      [
+        "includeDetails",
+        "boolean",
+        "Open each listing for the description, construction year, heating, parking, energy use, all photos and more.",
+        "false"
+      ],
+      [
+        "onlyNew",
+        "boolean",
+        "Return only listings that no earlier run with the same `stateKey` returned. Ideal for schedules.",
+        "true"
+      ],
+      [
+        "stateKey",
+        "string",
+        "Name of the memory `onlyNew` uses; one per scheduled search.",
+        "\"brussels-rentals\""
+      ]
+    ],
+    "run_input": {
+      "startUrls": [
+        "https://www.immoweb.be/en/search/apartment/for-rent?countries=BE&postalCodes=1050&orderBy=newest"
+      ],
+      "maxResults": 20
+    },
+    "output": [
+      [
+        "id",
+        "22017399",
+        "Immoweb listing id"
+      ],
+      [
+        "url",
+        "\"https://www.immoweb.be/en/classified/…/22017399\"",
+        "Link to the listing"
+      ],
+      [
+        "title",
+        "\"Recente enkele garagebox te huur in Houthulst\"",
+        "Listing title (can be empty)"
+      ],
+      [
+        "propertyType",
+        "\"GARAGE\"",
+        "Property type"
+      ],
+      [
+        "propertySubtype",
+        "\"LOCK_UP_PARKING\"",
+        "Subtype"
+      ],
+      [
+        "transactionType",
+        "\"FOR_RENT\"",
+        "For sale or for rent"
+      ],
+      [
+        "price",
+        "85",
+        "Price in euros (monthly for rentals)"
+      ],
+      [
+        "priceDisplay",
+        "\"€85/month\"",
+        "Price as shown"
+      ],
+      [
+        "bedrooms",
+        "0",
+        "Bedrooms"
+      ],
+      [
+        "livingArea",
+        "null",
+        "Living area in m²"
+      ],
+      [
+        "landArea",
+        "null",
+        "Land area in m²"
+      ],
+      [
+        "epcScore",
+        "null",
+        "Energy label"
+      ],
+      [
+        "street",
+        "\"Kerkstraat\"",
+        "Street, when shown"
+      ],
+      [
+        "postalCode",
+        "\"8650\"",
+        "Postal code"
+      ],
+      [
+        "locality",
+        "\"Houthulst\"",
+        "Town"
+      ],
+      [
+        "province",
+        "\"West Flanders\"",
+        "Province"
+      ],
+      [
+        "latitude",
+        "50.9782275",
+        "Latitude"
+      ],
+      [
+        "longitude",
+        "2.9495377",
+        "Longitude"
+      ],
+      [
+        "advertiserName",
+        "\"Bordes Roeselare-Hooglede\"",
+        "Agency or advertiser"
+      ],
+      [
+        "advertiserType",
+        "\"PROFESSIONAL\"",
+        "Professional or private"
+      ],
+      [
+        "imageUrl",
+        "\"https://media-resize.immowebstatic.be/…\"",
+        "Main photo"
+      ],
+      [
+        "isNewlyListed",
+        "true",
+        "Immoweb's 'new' flag"
+      ],
+      [
+        "lastModificationDate",
+        "\"2026-11-27T19:56:23.283Z\"",
+        "When the listing last changed"
+      ],
+      [
+        "scrapedAt",
+        "\"2026-11-27T23:09:59.416Z\"",
+        "When it was scraped"
+      ]
+    ],
+    "print_py": "print((listing.get(\"title\") or listing.get(\"propertyType\") or \"\")[:60], \"|\", listing.get(\"priceDisplay\"), \"|\", listing.get(\"bedrooms\"), \"bed |\", listing.get(\"locality\"))",
+    "print_js": "console.log((listing.title || listing.propertyType || '').slice(0, 60), '|', listing.priceDisplay, '|', listing.bedrooms, 'bed |', listing.locality);",
+    "uses": [
+      "A morning alert of new rentals or homes for sale in your postal codes, with `sortBy: \"newest\"` and `onlyNew: true`.",
+      "Price-per-m² research by town or province.",
+      "Mapping listings with their coordinates."
+    ],
+    "notes": [
+      "Immoweb shows at most about 10,000 listings per search; split big searches by postal code or price.",
+      "`includeDetails` opens every listing page, so runs take longer; leave it off when the search fields are enough."
+    ]
   }
 ]
